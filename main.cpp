@@ -1,4 +1,5 @@
 #include <iostream>
+#include <limits>
 #include <utility>
 
 class Heap{
@@ -33,6 +34,23 @@ class Heap{
         }
         std::cout << "\n";
     }
+
+    public: int fn_GetMax(int* ip_Arr, int i_Size){
+        if(i_Size == 0){
+            return std::numeric_limits<int>::min();
+        }
+        else{
+            int i_Res= ip_Arr[0];
+            fn_DeleteNode(ip_Arr, i_Size);
+
+            return i_Res;
+        }
+    }
+
+    private: void fn_DeleteNode(int* ip_Arr, int i_Size){
+        ip_Arr[0] = ip_Arr[(i_Size-1)];
+        fn_MaxHeapify(ip_Arr, i_Size-1, 0);
+    }
 };
 
 int main() {
@@ -43,5 +61,11 @@ int main() {
 
 
 	std::cout << "Sorted array is \n";
+	o_Heap.fn_GetResult(ia_Arr, i_Size);
+
+    std::cout<< "Max element is "<< o_Heap.fn_GetMax(ia_Arr, i_Size)
+            << "\n";
+    i_Size--;
+    std::cout << "Sorted array is \n";
 	o_Heap.fn_GetResult(ia_Arr, i_Size);
 }
